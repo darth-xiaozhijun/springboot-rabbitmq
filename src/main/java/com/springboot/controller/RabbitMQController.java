@@ -46,4 +46,20 @@ public class RabbitMQController {
         }
         return times.toString();
     }
+	
+	@RequestMapping(value = "/topicSend1.do",method = RequestMethod.GET)
+    public String  topicSend1() {
+        String context = "my topic 1";
+        System.out.println("发送者说 : " + context);
+        this.amqpTemplate.convertAndSend("exchange", "topic.message", context);
+        return context;
+    }
+	
+    @RequestMapping(value = "/topicSend2.do",method = RequestMethod.GET)
+    public String topicSend2() {
+        String context = "my topic 2";
+        System.out.println("发送者说 : " + context);
+        this.amqpTemplate.convertAndSend("exchange", "topic.messages", context);
+        return  context;
+    }
 }
